@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru" data-theme="minimal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PULSE</title>
+<style>
+html[data-theme="minimal"]{--bg:#f4f1ea;--el:#fffdf8;--ink:#161616;--mu:#6d6a64;--ln:#ddd6c8;--ac:#111;--ai:#fff}
+html[data-theme="vivid"]{--bg:#14081c;--el:#24112f;--ink:#fff5fb;--mu:#c9a8d8;--ln:#4a2a58;--ac:#ff3d8a;--ai:#fff}
+*{box-sizing:border-box}html,body,#app{height:100%;margin:0}body{font-family:-apple-system,system-ui;background:var(--bg);color:var(--ink)}
+.wrap{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+.hd,.pl{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+.sc{flex:1;padding:8px 16px 16px;overflow:auto}
+.b{border:1px solid var(--ln);background:var(--el);color:var(--ink);border-radius:14px;padding:12px;font-weight:700}
+.w{width:100%;margin:8px 0;background:var(--ac);color:var(--ai);border:0;border-radius:14px;padding:14px;font-weight:800}
+.ph{width:72px;height:72px;border-radius:50%;background:var(--ln);display:inline-block;margin-right:6px}
+.item{display:block;width:100%;margin:0 0 8px;padding:12px;border:1px solid var(--ln);background:var(--el);border-radius:14px;text-align:left;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ln);padding:8px 0 16px;background:var(--el)}
+.tabs button{border:0;background:none;color:var(--mu);font-weight:700;padding:10px}
+.mu{color:var(--mu)}
+</style>
+</head>
+<body>
+<div id="app">PULSE</div>
+<script>
+var tab = "me";
+var theme = "minimal";
+var n = 0;
+function paint(){
+  document.documentElement.setAttribute("data-theme", theme);
+  var body = "";
+  if(tab==="me"){
+    body = "<div><span class=ph></span><span class=ph></span><span class=ph></span><span class=ph></span><span class=ph></span></div>" +
+      "<h1>Аня</h1><p class=mu>жен · 26</p>" +
+      "<button class=item>Ночной трамвай</button>" +
+      "<button class=item>Тише</button>" +
+      "<button class=item>Дом на холме</button>" +
+      "<button class=w id=create>Создать Волну</button>" +
+      "<button class=w id=catch>Поймать Волну</button>" +
+      "<p class=mu>Волн сегодня "+n+"/3</p>";
+  } else if(tab==="waves"){
+    body = "<p>Марк · Неон</p><p>Лиза · Окно</p>";
+  } else if(tab==="friends"){
+    body = "<p>Нужен доступ: Кира</p><p>Открытые: Олег</p><p>Друзья: Мила</p>";
+  } else if(tab==="live"){
+    body = "<p id=back>Назад</p><h1>Ночной трамвай</h1><p>Визуал волны · 3 часа · лайки трека</p><p>Олег: этот припев держит</p>";
+  } else {
+    body = "<p>Сцена и клубы — следующий срез</p>";
+  }
+  document.getElementById("app").innerHTML = "<div class=wrap><div class=hd><b>PULSE</b><button class=b id=theme>"+(theme==="minimal"?"Яркая":"Минимал")+"</button></div><div class=sc>"+body+"</div><div class=pl><b>Ночной трамвай</b></div><div class=tabs><button id=tme>Я</button><button id=tw>Волны</button><button id=tf>Друзья</button><button id=ts>Сцена</button></div></div>";
+  document.getElementById("theme").onclick=function(){theme=theme==="minimal"?"vivid":"minimal";paint()};
+  document.getElementById("tme").onclick=function(){tab="me";paint()};
+  document.getElementById("tw").onclick=function(){tab="waves";paint()};
+  document.getElementById("tf").onclick=function(){tab="friends";paint()};
+  document.getElementById("ts").onclick=function(){tab="stage";paint()};
+  var c=document.getElementById("create"); if(c) c.onclick=function(){n=n+1;tab="live";paint()};
+  var k=document.getElementById("catch"); if(k) k.onclick=function(){tab="waves";paint()};
+  var b=document.getElementById("back"); if(b) b.onclick=function(){tab="me";paint()};
+}
+paint();
+</script>
+</body>
+</html>
